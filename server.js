@@ -19,10 +19,8 @@ app.get('/api/test', (req, res) => {
     res.json({ message: "Server is alive" });
 });
 
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => console.log(`Server listening on :${PORT}`));
 
 // in-memory stores for prototype (replace with DB in production)
 const users = {}; // username -> { passwordHash, balance, wins, losses }
@@ -286,5 +284,3 @@ function finishMatch(matchId, winner) {
   io.to(matchId).emit('raceResult', { winner, results, multipliers });
 }
  
-// start server
-server.listen(3000, () => console.log('Server listening on :3000'));
