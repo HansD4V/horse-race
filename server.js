@@ -26,7 +26,12 @@ server.listen(PORT, () => console.log(`Server listening on :${PORT}`));
 const users = {}; // username -> { passwordHash, balance, wins, losses }
 const matches = {}; // matchId -> match object
 
-const JWT_SECRET = 'replace_with_strong_secret';
+const JWT_SECRET = 'zxczxc';
+
+// Admin credentials (hardcoded for prototype)
+const ADMIN_USERNAME = 'hans';
+const ADMIN_PASSWORD_HASH = bcrypt.hashSync('1234', 10); // hash of the password
+const ADMIN_JWT_SECRET = 'supersecretkey'; // separate secret for admin
 
 // --- simple auth endpoints (for prototype) ---
 app.post('/register', async (req, res) => {
@@ -39,6 +44,7 @@ app.post('/register', async (req, res) => {
   return res.send({ ok: true });
 });
 
+// User login route
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const u = users[username?.toLowerCase()];
@@ -49,10 +55,35 @@ app.post('/login', async (req, res) => {
   res.send({ token, balance: u.balance, wins: u.wins, losses: u.losses });
 });
 
+// Admin login route
+app.post('/api/admin/login', (req, res) => {
+  const { username, password } = req.body;
+
+  if (username !== ADMIN_USERNAME) {
+    return res.status(401).json({ message: 'Invalid username' });
+  }
+
+  if (!bcrypt.compareSync(password, ADMIN_PASSWORD_HASH)) {
+    return res.status(401).json({ message: 'Invalid password' });
+  }
+
+  const token = jwt.sign({ username }, ADMIN_JWT_SECRET, { expiresIn: '2h' });
+  res.json({ token });
+});
+
 // --- socket auth helper ---
 function verifyToken(token) {
   try {
     return jwt.verify(token, JWT_SECRET);
+  } catch (e) {
+    return null;
+  }
+}
+
+// verify admin
+function verifyAdminToken(token) {
+  try {
+    return jwt.verify(token, ADMIN_JWT_SECRET);
   } catch (e) {
     return null;
   }
