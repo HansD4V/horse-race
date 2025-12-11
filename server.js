@@ -1,16 +1,28 @@
 // server.js
 const express = require('express');
+const path = require('path');
+const app = express();
 const http = require('http');
 const { Server } = require('socket.io');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
+// middleware
 app.use(express.json());
-app.use(express.static('public')); // optional: host client build
+app.use(express.static(path.join(__dirname, 'public')));
+
+// temporary test route
+app.get('/api/test', (req, res) => {
+    res.json({ message: "Server is alive" });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
 // in-memory stores for prototype (replace with DB in production)
 const users = {}; // username -> { passwordHash, balance, wins, losses }
