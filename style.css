@@ -1,0 +1,110 @@
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f0f0;
+  text-align: center;
+  margin: 20px;
+}
+
+/* Horse tracks styling */
+.horse-track {
+  position: relative;
+  height: 60px;
+  margin: 15px 0;
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  line-height: 60px;
+  font-weight: bold;
+  font-size: 24px;
+  color: #333;
+}
+
+.horse {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  font-size: 36px;
+  user-select: none;
+  transition: left 0.1s linear;
+  transform: scaleX(-1); /* Flip horse emoji to face right */
+}
+
+.finish-line {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 800px;
+  height: 100%;
+  width: 6px;
+  background: red;
+  box-shadow: 0 0 10px red;
+}
+
+/* Buttons */
+button {
+  margin-top: 10px;
+  font-size: 16px;
+  padding: 8px 20px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+/* Info boxes */
+#leaderboard,
+#playerStats,
+#allPlayers,
+#livePositions,
+#oddsContainer {
+  background: #fff;
+  border-radius: 5px;
+  padding: 15px 20px;
+  margin: 20px auto;
+  text-align: left;
+  width: 320px;
+}
+
+#leaderboard ol,
+#allPlayers ul,
+#livePositions ol,
+#oddsContainer ul {
+  padding-left: 20px;
+}
+
+/* Form controls */
+label,
+input {
+  font-size: 16px;
+  margin: 5px;
+}
+
+input[type=number],
+input[type=text] {
+  width: 60px;
+}
+
+#removePlayerName {
+  width: 140px;
+}
+
+/* Countdown and results */
+#countdown {
+  font-size: 20px;
+  font-weight: bold;
+  color: #555;
+}
+
+#result {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 20px;
+  min-height: 28px;
+}
+
+#replay {
+  text-align: center;
+  justify-content: center;
+  margin-left: 34.5em;
+}

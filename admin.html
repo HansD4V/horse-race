@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<style>
+body { font-family: sans-serif; text-align: center; padding: 2em; }
+button { padding: 0.5em 1em; margin-top: 1em; }
+</style>
+</head>
+<body>
+<script>
+if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
+  window.location.href = 'login.html';
+}
+</script>
+
+<h1>Welcome to Admin Dashboard</h1>
+<p>You are now logged in as admin.</p>
+
+<div id="adminActions">
+    <button id="clearDataBtn">Clear All Data</button>
+    <button id="removePlayerBtn">Remove Player Data</button>
+    <input type="text" id="removePlayerName" placeholder="Player Name to Remove" />
+</div>
+
+<button id="logoutBtn">Logout</button>
+
+<script>
+
+    const clearDataBtn = document.getElementById('clearDataBtn');
+    const removePlayerBtn = document.getElementById('removePlayerBtn');
+    const removePlayerName = document.getElementById('removePlayerName');
+    const adminActions = document.getElementById('adminActions');
+    const msg = document.getElementById('msg');
+
+    clearDataBtn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear all data?')) {
+        localStorage.clear();
+        msg.style.color = 'green';
+        msg.textContent = 'All data cleared.';
+      }
+    });
+
+    removePlayerBtn.addEventListener('click', () => {
+      const name = removePlayerName.value.trim().toLowerCase();
+      if (!name) {
+        alert('Enter a player name.');
+        return;
+      }
+      let players = JSON.parse(localStorage.getItem('players')) || {};
+      if (!players[name]) {
+        alert('Player not found.');
+        return;
+      }
+      if (confirm(`Are you sure you want to delete player "${name}"?`)) {
+        delete players[name];
+        localStorage.setItem('players', JSON.stringify(players));
+        alert('Player data removed.');
+        removePlayerName.value = '';
+      }
+    });
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem('adminLoggedIn');
+  window.location.href = 'index.html';
+});
+</script>
+</body>
+</html>

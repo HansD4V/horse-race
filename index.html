@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Horse Racing Game</title>
+
+  <!-- External CSS for styling -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Canvas Confetti library for victory celebration -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+
+<body>
+  <h1>🐎 Horse Racing Game 🐎</h1>
+
+  <!-- Player section -->
+  <label for="playerName">Player Name:</label>
+  <input type="text" id="playerName" placeholder="Enter name" />
+  <label for="playerPassword">Password:</label>
+  <input type="password" id="playerPassword" placeholder="Enter password" />
+
+  <button id="switchPlayerBtn" title="Double tap to auto-load to your account after page refreshed">Switch/Load Player</button>
+
+  <br><br>
+
+  <!-- Betting section -->
+  <label for="betType">Bet Type:</label>
+  <select id="betType">
+    <option value="1">Single Horse</option>
+    <option value="2">Two Horses</option>
+  </select>
+
+  <label for="betHorse1">Choose Horse 1:</label>
+  <select id="betHorse1">
+    <option value="1">Horse 1</option>
+    <option value="2">Horse 2</option>
+    <option value="3">Horse 3</option>
+    <option value="4">Horse 4</option>
+    <option value="5">Horse 5</option>
+  </select>
+
+  <label for="betHorse2" title="Optional">Choose Horse 2:</label>
+  <select id="betHorse2" disabled>
+    <option value="">-- None --</option>
+    <option value="1">Horse 1</option>
+    <option value="2">Horse 2</option>
+    <option value="3">Horse 3</option>
+    <option value="4">Horse 4</option>
+    <option value="5">Horse 5</option>
+  </select>
+
+  <label for="betAmount">Bet Amount ($):</label>
+  <input type="number" id="betAmount" min="3" value="3" />
+
+  <button id="raceBtn">Start Race</button>
+
+  <!-- Countdown before race starts -->
+  <p id="countdown"></p>
+
+  <!-- Race track container -->
+  <div id="raceTrack" style="width: 860px; margin: 0 auto;">
+    <!-- Horse tracks for each horse -->
+    <div class="horse-track">
+      <div class="finish-line"></div>
+      <div class="horse" id="horse1">🏇</div> Horse 1
+    </div>
+    <div class="horse-track">
+      <div class="finish-line"></div>
+      <div class="horse" id="horse2">🏇</div> Horse 2
+    </div>
+    <div class="horse-track">
+      <div class="finish-line"></div>
+      <div class="horse" id="horse3">🏇</div> Horse 3
+    </div>
+    <div class="horse-track">
+      <div class="finish-line"></div>
+      <div class="horse" id="horse4">🏇</div> Horse 4
+    </div>
+    <div class="horse-track">
+      <div class="finish-line"></div>
+      <div class="horse" id="horse5">🏇</div> Horse 5
+    </div>
+  </div>
+
+  <!-- Race result -->
+  <p id="result"></p>
+
+  <!-- Live race positions display -->
+  <div id="livePositions">
+    <h4>🐎 Live Race Positions</h4>
+    <ol id="livePositionsList"></ol>
+  </div>
+
+  <!-- Replay -->
+  <div id="replay">
+    <button id="replayBtn" style="display: none;">Replay Race</button>
+  </div>
+  
+
+  <!-- Odds and multiplier display -->
+  <div id="oddsContainer">
+    <h4>Bet Multiplier:</h4>
+    <ul id="horseOdds"></ul>
+  </div>
+
+  <!-- Leaderboard -->
+  <div id="leaderboard">
+    <h3>🐴 Horse Stats</h3>
+    <ol id="leaders"></ol>
+  </div>
+
+  <!-- Current player stats -->
+  <div id="playerStats">
+    <h3>👤 Player</h3>
+    <p><strong>Name:</strong> <span id="playerDisplay">-</span></p>
+    <p><strong>Balance:</strong> $<span id="money">0</span></p>
+    <p><strong>Wins:</strong> <span id="playerWins">0</span></p>
+    <p><strong>Losses:</strong> <span id="playerLosses">0</span></p>
+  </div>
+
+  <!-- All players list -->
+  <div id="allPlayers">
+    <h3>All Players</h3>
+    <ul id="playersList"></ul>
+  </div>
+
+  <!-- Data management section -->
+  <div>
+    <button id="clearDataBtn" disabled>Clear All Data</button>
+    <input type="text" id="removePlayerName" placeholder="Player name to remove" disabled/>
+    <button id="removePlayerBtn" disabled>Remove Player Data</button>
+  </div>
+
+  <!-- Admin Login -->
+   <a href="login.html">Admin</a>
+
+  <!-- Sound effects -->
+  <audio id="startSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
+  <audio id="finishSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
+
+  <!-- External JS for game logic -->
+  <script src="script.js" defer></script>
+</body>
+
+</html>
